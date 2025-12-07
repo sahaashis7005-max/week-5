@@ -1,0 +1,40 @@
+
+/**
+ * Write a description of class FixedDepositNIB here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+import java.util.Scanner;
+
+public class FixedDepositNIB {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        double principal, annualRate, monthlyRate, feeRate = 0.005, fee, finalAmount;
+        int years, months;
+
+        while (true) {
+            System.out.print("Enter principal (min Rs. 1000, max Rs. 1000000, or -1 to exit): ");
+            principal = sc.nextDouble();
+            if (principal == -1) break;
+            if (principal < 1000 || principal > 1000000) continue;
+
+            System.out.print("Enter annual interest rate (8-12%): ");
+            annualRate = sc.nextDouble();
+            if (annualRate < 8 || annualRate > 12) continue;
+
+            monthlyRate = annualRate / 12 / 100;
+            System.out.print("Enter duration in years (max 5): ");
+            years = sc.nextInt();
+            if (years < 1 || years > 5) continue;
+
+            months = years * 12;
+            double maturityAmount = principal * Math.pow(1 + monthlyRate, months);
+            fee = maturityAmount * feeRate;
+            finalAmount = maturityAmount - fee;
+
+            System.out.printf("Final Amount after processing fee: Rs. %.2f%n", finalAmount);
+        }
+        sc.close();
+    }
+}
